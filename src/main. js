@@ -1,0 +1,6 @@
+import { createClient } from '@supabase/supabase-js'
+
+const app = document.getElementById('app')
+app.innerHTML = '<h1>VS3s App Loaded ✅</h1><p>Ready for Supabase</p>'
+
+console.log('VS3s App Running')
