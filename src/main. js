@@ -1,6 +1,6 @@
-// 1. CONFIG - YOUR KEYS
-const SUPABASE_URL = 'https://cylznxankyyqktpkkbyg.supabase.co'
-const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN5bHpueGFua3l5cWt0cGtrYnlnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODEwMzYzMjMsImV4cCI6MjA5NjYxMjMyM30.Jj78H-s8WoisaVwSv1JxeazVtcr6fAJ6lstLckqaqz8'
+// 1. CONFIG - READ FROM VERCEL ENV VARS
+const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL
+const SUPABASE_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY
 
 // 2. INIT SUPABASE
 import { createClient } from 'https://cdn.skypack.dev/@supabase/supabase-js'
@@ -44,5 +44,5 @@ async function addTestProfile() {
   else alert('Added to View Later! Check Supabase table')
 }
 
-console.log('VS3s App Running')
+console.log('VS3s App Running', SUPABASE_URL) // added this to debug
 loadApp()
