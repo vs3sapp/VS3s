@@ -1,35 +1,35 @@
-import { createClient } from '@supabase/supabase-js'
+// 1. CONFIG - PUT YOUR KEYS HERE
+const SUPABASE_URL = 'https://your-project.supabase.co'  // <- REPLACE THIS
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...' // <- REPLACE THIS
 
-// 1. READ KEYS FROM VERCEL ENVIRONMENT VARIABLES
-const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL
-const SUPABASE_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY
+// 2. INIT SUPABASE
+import { createClient } from 'https://cdn.skypack.dev/@supabase/supabase-js'
 const supabase = createClient(SUPABASE_URL, SUPABASE_KEY)
 const app = document.getElementById('app')
 
-// 2. LOAD DATA FROM YOUR NEW TABLE
+// 3. LOAD DATA FROM YOUR NEW TABLE
 async function loadApp() {
   app.innerHTML = '<h1>VS3s App Loading...</h1><p>Checking database...</p>'
 
   const { data, error } = await supabase
-    .from('online_profiles') // <-- This matches the table we made
+    .from('online_profiles') // <- This matches the table we made
     .select('*')
     .limit(5)
 
   if (error) {
-    app.innerHTML = `<h1>Error 😢</h1><p>${error.message}</p>`
+    app.innerHTML = `<h1>Error 😵</h1><p>${error.message}</p>`
     console.error(error)
     return
   }
 
   app.innerHTML = `
-    <h1>VS3s App Ready 🎉</h1>
+    <h1>VS3s App Ready ✅</h1>
     <p>Found ${data.length} profiles in 'online_profiles' table</p>
     <button onclick="addTestProfile()">Test View Later Button</button>
   `
-
 }
 
-// 3. TEST THE VIEW LATER TABLE
+// 4. TEST THE VIEW LATER TABLE
 async function addTestProfile() {
   const { error } = await supabase
     .from('view_later_queue')
@@ -39,8 +39,8 @@ async function addTestProfile() {
       item_type: 'video',
       item_data: { title: 'Test Video' }
     })
-
-  if(error) alert('Error: ' + error.message)
+  
+  if(error) alert(`Error: ${error.message}`)
   else alert('Added to View Later! Check Supabase table')
 }
 
