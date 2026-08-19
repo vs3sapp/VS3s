@@ -9,39 +9,39 @@ const app = document.getElementById('app')
 
 // 3. LOAD DATA FROM YOUR NEW TABLE
 async function loadApp() {
-  app.innerHTML = '<h1>VS3s App Loading...</h1><p>Checking database...</p>'
+app.innerHTML = '<h1>VS3s App Loading...</h1><p>Checking database....</p>'
 
-  const { data, error } = await supabase
-    .from('online_profiles') // <- This matches the table we made
-    .select('*')
-    .limit(5)
+const { data, error } = await supabase
+.from('online_profiles') // << This matches the table we made
+.select('*')
+.limit(1)
 
-  if (error) {
-    app.innerHTML = `<h1>Error 😵</h1><p>${error.message}</p>`
-    console.error(error)
-    return
-  }
+if (error) {
+app.innerHTML = '<h1>Error 😭</h1><p>' + error.message + '</p>'
+console.error(error)
+return
+}
 
-  app.innerHTML = `
-    <h1>VS3s App Ready ✅</h1>
-    <p>Found ${data.length} profiles in 'online_profiles' table</p>
-    <button onclick="addTestProfile()">Test View Later Button</button>
-  `
+app.innerHTML = `
+<h1>VS3s App Ready ✅</h1>
+<p>Found ${data.length} profiles in 'online_profiles' table</p>
+<button onclick="addTestProfile()">Test View Later Button</button>
+`
 }
 
 // 4. TEST THE VIEW LATER TABLE
 async function addTestProfile() {
-  const { error } = await supabase
-    .from('view_later_queue')
-    .insert({
-      app: 'flip',
-      item_id: 'test123',
-      item_type: 'video',
-      item_data: { title: 'Test Video' }
-    })
-  
-  if(error) alert(`Error: ${error.message}`)
-  else alert('Added to View Later! Check Supabase table')
+const { error } = await supabase
+.from('view_later_queue')
+.insert([{
+user_id: 'flip',
+item_id: 'test123',
+item_type: 'video',
+item_data: { title: 'Test Video' }
+}])
+
+if(error) alert('Error: ' + error.message)
+else alert('Added to View Later! Check Supabase table')
 }
 
 console.log('VS3s App Running', SUPABASE_URL) // added this to debug
