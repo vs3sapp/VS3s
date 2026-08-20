@@ -1,48 +1,53 @@
-// 1. CONFIG - READ FROM VERCEL ENV VARS
-const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL
-const SUPABASE_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY
+// ====== PASTE YOUR KEYS HERE ======
+const SUPABASE_URL = 'https://YOUR-PROJECT.supabase.co'
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.YOUR-ANON-KEY'
+// ==================================
 
-// 2. INIT SUPABASE
-import { createClient } from 'https://cdn.skypack.dev/@supabase/supabase-js'
-const supabase = createClient(SUPABASE_URL, SUPABASE_KEY)
-const app = document.getElementById('app')
+import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
 
-// 3. LOAD DATA FROM YOUR NEW TABLE
-async function loadApp() {
-app.innerHTML = '<h1>VS3s App Loading...</h1><p>Checking database....</p>'
+const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
 
-const { data, error } = await supabase
-.from('online_profiles') // << This matches the table we made
-.select('*')
-.limit(1)
-
-if (error) {
-app.innerHTML = '<h1>Error 😭</h1><p>' + error.message + '</p>'
-console.error(error)
-return
-}
-
-app.innerHTML = `
-<h1>VS3s App Ready ✅</h1>
-<p>Found ${data.length} profiles in 'online_profiles' table</p>
-<button onclick="addTestProfile()">Test View Later Button</button>
+// DEBUG: Show on screen
+document.body.innerHTML = `
+  <div style="padding:20px; font-family:sans-serif; color:white; background:#111; min-height:100vh">
+    <h1>VS3s App Ready ✅</h1>
+    <p>If you see this, JS is working!</p>
+    <button id="testBtn" style="padding:10px; background:green; color:white; border:none; border-radius:8px">
+      Test View Later Button
+    </button>
+    <pre id="output" style="margin-top:20px; background:#222; padding:10px"></pre>
+  </div>
 `
+
+const output = document.getElementById('output')
+
+async function testViewLater() {
+  output.innerText = 'Testing Supabase connection...'
+  
+  // 1. Test fetch profiles
+  const { data: profiles, error: profileError } = await supabase
+    .from('online_profiles')
+    .select('*')
+    .limit(1)
+  
+  if(profileError) {
+    output.innerText = 'ERROR fetching profiles: ' + profileError.message
+    return
+  }
+  
+  output.innerText = `Found ${profiles.length} profiles. Testing insert...\n`
+
+  // 2. Test insert
+  const { data, error } = await supabase
+    .from('view_later_queue')
+    .insert([{ profile_id: 'test-123' }])
+    .select()
+
+  if (error) {
+    output.innerText += 'ERROR inserting: ' + error.message
+  } else {
+    output.innerText += 'SUCCESS! Inserted: ' + JSON.stringify(data)
+  }
 }
 
-// 4. TEST THE VIEW LATER TABLE
-async function addTestProfile() {
-const { error } = await supabase
-.from('view_later_queue')
-.insert([{
-user_id: 'flip',
-item_id: 'test123',
-item_type: 'video',
-item_data: { title: 'Test Video' }
-}])
-
-if(error) alert('Error: ' + error.message)
-else alert('Added to View Later! Check Supabase table')
-}
-
-console.log('VS3s App Running', SUPABASE_URL) // added this to debug
-loadApp()
+document.getElementById('testBtn').onclick = testViewLater
