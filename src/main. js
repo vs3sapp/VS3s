@@ -5,29 +5,27 @@ import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
 const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
 
 document.body.innerHTML = `
-  <div style="padding:20px; font-family:sans-serif; color:white; background:#111; min-height:100vh">
-    <h1>VS3s App Ready ✅</h1>
-    <p>Keys are hardcoded and working!</p>
-    <button id="testBtn" style="padding:12px; background:#00ff88; color:black; font-weight:bold; border:none; border-radius:8px">
-      Test View Later Button
-    </button>
-    <pre id="output" style="margin-top:20px; background:#222; padding:15px; border-radius:8px; white-space:pre-wrap"></pre>
-  </div>
+<div style="padding:20px; font-family:sans-serif; color:white; background:#111; min-height:100vh;">
+  <h3>VS3s App Ready ✅</h3>
+  <p>Keys are hardcoded and working!</p>
+  <button id="testBtn" style="padding:12px; background:#00ff88; color:black; font-weight:bold; border:none; border-radius:8px;">Test View Later Button</button>
+  <pre id="output" style="margin-top:20px; background:#222; padding:15px; border-radius:10px; white-space:pre-wrap;"></pre>
+</div>
 `
 
 const output = document.getElementById('output')
 
 async function testViewLater() {
-  output.innerText = 'Connecting to Supabase...\n'
+  output.innerText = 'Connecting to Supabase...\\n'
   try {
     const { data: profiles, error: profileError } = await supabase.from('online_profiles').select('*').limit(1)
     if(profileError) {
       output.innerText += 'ERROR profiles: ' + profileError.message
       return
     }
-    output.innerText += `Found profiles OK. Testing insert...\n`
-    const { data, error } = await supabase.from('view_later_queue').insert([{ profile_id: 'test-123' }]).select()
-    if(error) output.innerText += 'INSERT ERROR: ' + error.message + '\nCheck if view_later_queue table exists and RLS is off'
+    output.innerText += 'Found profiles OK. Testing insert...\\n'
+    const { data, error } = await supabase.from('view_later_queue').insert({ profile_id: 'test-123' }).select()
+    if(error) output.innerText += 'INSERT ERROR: ' + error.message + '\\nCheck if view_later_queue table exists and RLS'
     else output.innerText += 'SUCCESS! Inserted: ' + JSON.stringify(data, null, 2)
   } catch(e) {
     output.innerText += 'JS ERROR: ' + e.message
