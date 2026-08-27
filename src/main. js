@@ -1,1 +1,1 @@
-document.body.innerHTML = 'HELLO IT WORKS!'
+document.body.innerHTML = "<h1 style='color:white;background:black;height:100vh;display:flex;align-items:center;justify-content:center'>IT WORKS FINALLY</h1>"
