@@ -1,7 +1,1 @@
-import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
-
-const supabase = createClient('https://neaxesmiwbnfbhhckikc.supabase.co','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5lYXhlc21pd2JuZmJoaGNraWtjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTUxNjM5MjAsImV4cCI6MjA2MDczOTkyMH0.s2K2vP2VgsmQzQ9s1A2P9W_2O9a5x_example')
-
-document.body.innerHTML = '<div style="background:black;color:white;min-height:100vh;display:flex;align-items:center;justify-content:center;font-size:40px">HELLO IT WORKS!</div>'
-
-console.log('VS3s loaded!')
+document.body.innerHTML = 'HELLO IT WORKS!'
