@@ -1,0 +1,9 @@
+{
+  "name": "VS3s",
+  "short_name": "VS3s",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#0a0a0a",
+  "theme_color": "#0a0a0a",
+  "icons": [{"src": "https://cdn-icons-png.flaticon.com/512/5968/5968764.png","sizes": "512x512","type": "image/png"}]
+}
