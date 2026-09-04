@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VS3s - Super App</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0a0a0a">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0a;color:#fff;font-family:sans-serif}
+body.premium{border-top:4px solid gold}
+.header{display:flex;justify-content:space-between;padding:12px;background:#111}
+.mode{padding:7px 15px;border-radius:20px;border:1px solid #444;font-size:11px;font-weight:900;cursor:pointer}
+.mode.active{background:#fff;color:#000}
+.mode.premium.active{background:gold;color:#000}
+.content{padding:24px;text-align:center}
+.card{background:#151515;border:1px solid #222;border-radius:12px;padding:20px;margin:10px 0;text-align:left}
+.card.lock{filter:blur(4px)}
+</style>
+</head>
+<body>
+<div class="header">
+<div>
+<div onclick="setPlan('premium')" id="pBtn" class="mode premium">Premium</div>
+<div onclick="setPlan('freemium')" id="fBtn" class="mode" style="margin-top:6px">Freemium</div>
+</div>
+<div style="font-weight:900">VS3s</div>
+</div>
+<div class="content">
+<h2 id="welcome">VS3s LIVE</h2>
+<div class="card">💬 Messenger - works both modes</div>
+<div class="card lock" id="lockCard">💌 Love Letters - Premium only</div>
+<button onclick="setPlan('freemium')" style="width:100%;padding:12px;margin-top:10px">Freemium</button>
+<button onclick="setPlan('premium')" style="width:100%;padding:12px;margin-top:10px;background:gold">Premium</button>
+</div>
+<script>
+if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js')}
+let plan=localStorage.getItem('vs3s')||'freemium';
+function setPlan(x){plan=x;localStorage.setItem('vs3s',x);document.getElementById('fBtn').classList.toggle('active',x==='freemium');document.getElementById('pBtn').classList.toggle('active',x==='premium');document.body.classList.toggle('premium',x==='premium');document.getElementById('welcome').innerText=x==='premium'?'Premium Mode Active ✨':'Freemium Mode Active';document.getElementById('lockCard').classList.toggle('lock',x==='freemium')}
+setPlan(plan)
+</script>
+</body>
+</html>
