@@ -1,8 +1,11 @@
 {
-  "name": "vs3s-app",
+  "name": "vs3s",
   "version": "1.0.0",
+  "private": true,
   "scripts": {
-    "dev": "vite"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.45.0"
