@@ -3,39 +3,57 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="manifest" href="/manifest.json">
 <title>VS3s - Maud True Born VS3s' King Will Always Reign in Goodwill</title>
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#A420D0">
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif}
-body{height:100vh;display:flex;flex-direction:column;color:#fff;overflow:hidden;position:relative}
-body.freemium{background:#000052}
-body.premium{background:radial-gradient(circle at top,#524F81 0%,#000052 70%);border:3px solid #A420D0;box-shadow:inset 0 0 60px #A420D0}
-#matrix{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;opacity:.18;pointer-events:none}
-.ticker{position:fixed;top:0;left:0;width:100%;height:28px;background:linear-gradient(90deg,#000052,#A420D0,#FFD700);color:#fff;display:flex;align-items:center;white-space:nowrap;overflow:hidden;z-index:20;border-bottom:2px solid gold;font-weight:900;font-size:11px;letter-spacing:1px}
-.ticker-track{display:inline-block;padding-left:100%;animation:ticker 40s linear infinite}
-@keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-100%)}}
-.slogan-bg{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) rotate(-18deg);font-size:38px;font-weight:900;text-align:center;line-height:1.1;width:140%;pointer-events:none;z-index:1;letter-spacing:2px}
-body.freemium .slogan-bg{color:rgba(192,192,192,.12);text-shadow:0 0 20px silver}
-body.premium .slogan-bg{color:rgba(255,215,0,.15);text-shadow:0 0 25px gold,0 0 45px #A420D0}
-.header{margin-top:28px;position:relative;z-index:10;display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:rgba(0,0,0,.75);border-bottom:2px solid #A420D0}
-.logo{font-weight:900;font-size:22px;letter-spacing:3px}.logo.silver{color:silver;text-shadow:0 0 10px #fff}.logo.gold{color:gold;text-shadow:0 0 15px gold,0 0 30px #A420D0}
-.modes{display:flex;gap:8px}.mode{padding:7px 14px;border-radius:20px;border:1px solid #666;font-size:11px;font-weight:900;cursor:pointer;background:rgba(0,0,0,.5)}
-.mode.freemium.active{background:silver;color:#000052;box-shadow:0 0 12px silver}.mode.premium.active{background:gold;color:#000;box-shadow:0 0 15px gold}
-.main{flex:1;display:flex;overflow:hidden;position:relative;z-index:2}.sidebar{width:30%;background:rgba(0,0,82,.78);border-right:2px solid #A420D0;overflow-y:auto}.sidebar-title{padding:10px;font-size:10px;opacity:.6}.dm{padding:12px 10px;border-bottom:1px solid rgba(255,255,255,.07);font-size:13px;cursor:pointer}.dm:hover{background:rgba(164,32,208,.3)}
-.vault{width:30%;background:rgba(82,79,129,.88);border-left:2px solid #A420D0;overflow-y:auto;padding:10px}.vault.lock{filter:blur(8px);pointer-events:none;opacity:.5}.card{background:rgba(0,0,0,.55);border:1px solid #A420D0;border-radius:10px;padding:10px;margin:8px 0;font-size:12px}
-.center{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:18px;text-align:center;background:rgba(0,0,0,.25)}
-.mosaic-footer{position:fixed;bottom:0;left:0;width:100%;font-size:8px;letter-spacing:1px;opacity:.35;text-align:center;padding:4px;background:rgba(0,0,0,.6);z-index:10}
-input{width:100%;padding:11px;border-radius:8px;border:1px solid #A420D0;background:rgba(0,0,0,.6);color:#fff;margin:5px 0}
-button{padding:11px;border-radius:8px;border:none;font-weight:900;cursor:pointer}.btn-gold{background:gold;color:#000;width:100%}
+body{margin:0;background:#000052;color:#fff;font-family:Inter,sans-serif}
+#vs3s-header{display:flex;justify-content:space-between;align-items:center;background:#000052;padding:10px 12px;border-bottom:2px solid #C9A86A}
+.left-flags{display:flex;gap:10px;align-items:center}
+.stacked{display:flex;flex-direction:column;gap:6px}
+.stacked img{width:42px;height:28px;object-fit:cover;border:1px solid #fff;border-radius:3px}
+#flag-dest{width:74px;height:62px;object-fit:cover;border:2px solid #C9A86A;border-radius:4px;box-shadow:0 0 10px rgba(201,168,106,.4)}
+.logo-area{display:flex;align-items:center;gap:10px}
+.logo-circle{width:44px;height:44px;background:radial-gradient(circle,#C9A86A,#000052);border:2px solid #C9A86A;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;color:#fff}
+.ticker{background:#000033;color:#C9A86A;white-space:nowrap;overflow:hidden;padding:6px;font-size:12px;letter-spacing:1px}
 </style>
 </head>
-<body class="freemium">
-<canvas id="matrix"></canvas>
-<div class="slogan-bg">Maud True Born<br>VS3s' King Will Always<br>Reign in Goodwill</div>
-<div class="ticker"><div class="ticker-track">Maud True Born VS3s' King Will Always Reign in Goodwill ★ 333 ★ Maud ★ Thokozile ★ Gladys ★ Goodwill ★ Rhino 🦏 ★ Sea Waves 🌊 ★ Zulu Umqhele 👑 ★ 55555 ★ 29 ★ 10 ★ 11 ★ 12 ★ 17 ★ 2 ★ 23 ★ 27 ★ 15 ★ 7777777 ★ Maud True Born VS3s' King Will Always Reign in Goodwill ★</div></div>
-<div class="header"><div class="modes"><div onclick="setPlan('freemium')" id="fBtn" class="mode freemium active">FREEMIUM • Silver</div><div onclick="setPlan('premium')" id="pBtn" class="mode premium">PREMIUM • Gold</div></div><div id="logo" class="logo silver">VS3s</div></div>
-<div class="main">
-<div class="sidebar"><div class="sidebar-title">DMs - All People</div><div class="dm">💬 Gladys</div><div class="dm">💬 Thandiwe</div><div class="dm">💬 Zamanguni</div><div class="dm">💬 Nelisiwe</div><div class="dm">💬 Precious</div><div class="dm">💬 Samkelisiwe</div><div class="dm">💬 Londiwe</div><div class="dm">💬 Sisekelo</div><div class="dm">💬 Sisanda</div></div>
-<div class="center"><h2 id="title">Freemium • Silver</h2><p style="font-size:11px;opacity:.7;margin:6px 0">
+<body>
+
+<!-- HEADER ROW - YOUR 3 FLAGS + LOGO -->
+<div id="vs3s-header">
+  <div class="left-flags">
+    <div class="stacked">
+      <div><img id="flag-origin" src="https://flagcdn.com/w80/za.png"><div style="font-size:8px;color:#C9A86A;">ORIGIN - Ethnic Nationality</div></div>
+      <div><img id="flag-citizen" src="https://flagcdn.com/w80/za.png"><div style="font-size:8px;color:#C9A86A;">CITIZENSHIP</div></div>
+    </div>
+    <div style="margin-left:8px;text-align:center;">
+      <img id="flag-dest" src="https://flagcdn.com/w80/us.png">
+      <div style="font-size:8px;color:#C9A86A;margin-top:2px;">DESTINATION - Where User Is</div>
+    </div>
+  </div>
+  <div class="logo-area">
+    <div style="text-align:right"><div style="font-weight:900;letter-spacing:2px">VS3s</div><div style="font-size:8px;color:#C9A86A;letter-spacing:1px">REIGN IN GOODWILL</div></div>
+    <div class="logo-circle">3</div>
+  </div>
+</div>
+
+<div class="ticker">Maud True Born VS3s' King Will Always Reign in Goodwill • Encrypted Private Vault • 333 Collection • </div>
+
+<div id="app" style="padding:20px;text-align:center;">
+  <h2 style="color:#C9A86A">Vault Ready</h2>
+  <p>Origin, Citizenship & Destination flags loaded</p>
+</div>
+
+<script>
+// Set flags - change codes to your real ones: za, us, gb, etc
+// Uses flagcdn.com
+function setFlags(origin, citizen, dest){
+  document.getElementById('flag-origin').src=`https://flagcdn.com/w80/${origin}.png`;
+  document.getElementById('flag-citizen').src=`https://flagcdn.com/w80/${citizen}.png`;
+  document.getElementById('flag-dest').src=`https://flagcdn.com/w80/${dest}.png`;
+}
+setFlags('za','za','us');
+// Example: za = South Africa, us = USA
+</script>
+</body>
+</html>
